@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Go6 by wangfakang</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Go6</h1>
+        <p class="header">go runtime caller get file name and line</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/wangfakang/go6/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/wangfakang/go6/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/wangfakang/go6">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/wangfakang">wangfakang</a></p>
+
+
+      </header>
+      <section>
+        <p><code>golang 记录文件函数调用处文件名以及行数</code></p>
+
+<p>一般我们的项目中的log都会记载一个函数的调用处的文件名以及调用函数所处文件饿行数,这样在追查问题饿时候可以很快.</p>
+
+<p>嘿嘿,今天平安夜 (@)快乐~~  我就直接上代码了:</p>
+
+<p>/home/fakang/worker/go/demo.go</p>
+
+<div class="highlight highlight-source-c"><pre>package main
+
+<span class="pl-en">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>runtime<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>path<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>strings<span class="pl-pds">"</span></span>
+)
+
+func main() {
+
+    _, fulleFileName, line, _ := runtime.<span class="pl-c1">Caller</span>(<span class="pl-c1">0</span>) <span class="pl-c">//获取文件名(包括当前的路径)</span>
+    fmt.<span class="pl-c1">Println</span>(fulleFileName)
+    fmt.<span class="pl-c1">Println</span>(line)
+    var filenameend string
+    filenameend = path.<span class="pl-c1">Base</span>(fulleFileName) <span class="pl-c">//只要文件名,去处前面饿路径</span>
+    fmt.<span class="pl-c1">Println</span>(<span class="pl-s"><span class="pl-pds">"</span>file name end=<span class="pl-pds">"</span></span>, filenameend)
+    var filesufix string
+    filesufix = path.<span class="pl-c1">Ext</span>(filenameend) <span class="pl-c">//获取文件名饿后缀 </span>
+    fmt.<span class="pl-c1">Println</span>(<span class="pl-s"><span class="pl-pds">"</span>file fix end=<span class="pl-pds">"</span></span>, filesufix)
+
+    var filenameOnly string
+    filenameOnly = strings.<span class="pl-c1">TrimSuffix</span>(filenameend, filesufix) <span class="pl-c">//只要文件名本身,不要文件名后缀</span>
+    fmt.<span class="pl-c1">Println</span>(<span class="pl-s"><span class="pl-pds">"</span>filenameOnly=<span class="pl-pds">"</span></span>, filenameOnly)
+}
+
+</pre></div>
+
+<p>output:</p>
+
+<div class="highlight highlight-source-c"><pre>/home/fakang/worker/go/demo.go
+<span class="pl-c1">12</span>
+file name end=demo.go
+file fix end=.go
+filenameOnly=demo</pre></div>
+
+<pre><code>
+func Base(path string) string
+
+   Base returns the last element of path. Trailing slashes are removed before extracting the last element. 
+   If the path is empty, Base returns ".". If the path consists entirely of slashes, Base returns "/". 
+
+</code></pre>
+
+<h1>
+<a id="communite--" class="anchor" href="#communite--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Communite  </h1>
+
+<p>在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流</p>
+
+<ul>
+<li>邮件(1031379296#qq.com, 把#换成@)</li>
+<li>QQ: 1031379296</li>
+<li>weibo: <a href="http://weibo.com/u/2786211992/home">@王发康</a>
+</li>
+</ul>
+
+<h1>
+<a id="thx" class="anchor" href="#thx" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thx</h1>
+
+<ul>
+<li>chunshengsterATgmail.com</li>
+</ul>
+
+<h1>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span class="octicon octicon-link"></span></a>Author</h1>
+
+<ul>
+<li>Linux\nginx\golang\c\c++爱好者</li>
+<li>欢迎一起交流  一起学习# </li>
+<li>Others say good and Others good</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("go runtime caller get file name and line go 获取文件名以及行数");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
